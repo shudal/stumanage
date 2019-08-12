@@ -6,7 +6,8 @@ use think\Controller;
 class Base extends Controller {
     public function initialize() {
         if (!session('?type')) {
-            exit('no_right');
+            apiReturn(-1, 'no_right')->send();
+            exit;
         }
     }
 }
