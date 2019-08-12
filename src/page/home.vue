@@ -1,15 +1,15 @@
 <template>
     <div>
         <head-top></head-top>
-		<div class="border-radius: 2px">
-
+		    <div class="border-radius: 2px">
+          欢迎
         </div>
     </div>
 </template>
 
 <script>
 	import headTop from '../components/headTop';
-	 
+
     export default {
         data(){
             return {

@@ -1,78 +1,89 @@
 <template>
   <div>
-    <head-top></head-top>
-  <div style="margin-top: 20px;">
-<el-form ref="form" :model="form" :rules="rules" label-width="80px">
-  <el-form-item label="名字" prop="name">
-    <el-input v-model="form.name"></el-input>
-  </el-form-item>
-  <el-form-item label="学号" prop="stuid">
-    <el-input v-model="form.stuid"></el-input>
-  </el-form-item>
-  <el-form-item label="职务" prop="duty">
-    <el-input v-model="form.duty"></el-input>
-  </el-form-item>
-  <el-form-item label="籍贯" prop="place">
-    <el-input v-model="form.place"></el-input>
-  </el-form-item>
-  <el-form-item label="身份证号" prop="idcard">
-    <el-input v-model="form.idcard"></el-input>
-  </el-form-item>
-  <el-form-item label="民族" prop="nation">
-    <el-input v-model="form.nation"></el-input>
-  </el-form-item>
-  <el-form-item label="政治面貌" prop="politic">
-    <el-input v-model="form.politic"></el-input>
-  </el-form-item>
-  <el-form-item label="出生日期" prop="birthday">
-    <div class="block">
-      <span class="demonstration"></span>
-      <el-date-picker
-        v-model="form.birthday"
-        type="date"
-        placeholder="选择日期"
-        value-format="timestamp">
-      </el-date-picker>
+    <div>
+
+      <div>
+        <head-top></head-top>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+          <el-form-item label="名字" prop="name">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+          <el-form-item label="学号" prop="stuid">
+            <el-input v-model="form.stuid"></el-input>
+          </el-form-item>
+          <el-form-item label="职务" prop="duty">
+            <el-input v-model="form.duty"></el-input>
+          </el-form-item>
+          <el-form-item label="籍贯" prop="place">
+            <el-input v-model="form.place"></el-input>
+          </el-form-item>
+          <el-form-item label="身份证号" prop="idcard">
+            <el-input v-model="form.idcard"></el-input>
+          </el-form-item>
+          <el-form-item label="民族" prop="nation">
+            <el-input v-model="form.nation"></el-input>
+          </el-form-item>
+          <el-form-item label="政治面貌" prop="politic">
+            <el-input v-model="form.politic"></el-input>
+          </el-form-item>
+          <el-form-item label="出生日期" prop="birthday">
+            <div class="block">
+              <span class="demonstration"></span>
+              <el-date-picker
+                v-model="form.birthday"
+                type="date"
+                placeholder="选择日期"
+                value-format="timestamp">
+              </el-date-picker>
+            </div>
+          </el-form-item>
+          <el-form-item label="家庭地址" prop="home">
+            <el-input v-model="form.home"></el-input>
+          </el-form-item>
+          <el-form-item label="联系方式" prop="contact">
+            <el-input v-model="form.contact"></el-input>
+          </el-form-item>
+          <el-form-item label="头像" prop="avatar">
+            <el-upload
+              class="avatar-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :http-request="upload"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+              :with-credentials="true" >
+              <i v-if="imgChanged" class="el-icon-plus avatar-uploader-icon"> {{ imgFileName }}</i>
+              <p v-else> <img :src="this.uploadImgUrl" style="width:350px"></img></p>
+            </el-upload>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">立即修改</el-button>
+            <el-button>取消</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
-  </el-form-item>
-  <el-form-item label="家庭地址" prop="home">
-    <el-input v-model="form.home"></el-input>
-  </el-form-item>
-  <el-form-item label="联系方式" prop="contact">
-    <el-input v-model="form.contact"></el-input>
-  </el-form-item>
-  <el-form-item label="头像" prop="avatar">
-    <el-upload
-      class="avatar-uploader"
-      action="https://jsonplaceholder.typicode.com/posts/"
-      :http-request="upload"
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload"
-      :with-credentials="true" >
-      <i v-if="imgNotSelected" class="el-icon-plus avatar-uploader-icon"></i>
-      <p v-else> {{ imgFileName }}</p>
-    </el-upload>
-  </el-form-item>
-  <el-form-item>
-    <el-button type="primary" @click="onSubmit">立即创建</el-button>
-    <el-button>取消</el-button>
-  </el-form-item>
-</el-form>
-  </div>
   </div>
 </template>
 <script>
+
   import axios from 'axios'
   import headTop from '@/components/headTop'
   import { addStudent } from "../untils/student.js";
   import { uploadImgUrl }from '@/config/env';
   import  base  from '@/untils/base';
-
+  import {getUrlKey, setCookie, getCookie} from "../untils/util";
   export default {
+    activated() {
+      this.init();
+    },
     data() {
       return {
         form: {
+          id: getUrlKey('id'),
           name: '',
           stuid: '',
           duty: '',
@@ -87,7 +98,7 @@
         imageUrl: '',
         uploadImgUrl: uploadImgUrl,
         formData: new FormData(),
-        imgNotSelected: true,
+        imgChanged: false,
         imgFileName: 'this is img file name',
         rules: {
           name: [
@@ -124,9 +135,31 @@
       }
     },
     methods: {
+      init : async function() {
+        this.id = getUrlKey('id');
+        axios.get(base.url + '/index/student/get?id=' + this.id).then(response => {
+         if (response['data']['code'] == -1) {
+            if (response['data']['msg'] == 'no_right') {
+              this.$alert('请重新登录', '失败', {
+                confirmButtonText: '确定',
+              });
+            } else {
+              this.$alert(response['data']['msg'], '失败', {
+                confirmButtonText: '确定',
+              });
+            }
+          } else {
+            this.imgChanged = false;
+            this.form = response['data']['data'];
+            this.uploadImgUrl = base.url + '/static/uploads/' + this.form.pic;
+            console.log(this.form);
+          }
+        });
+      },
       async onSubmit() {
         this.$refs['form'].validate(valid => {
           if (valid) {
+            this.formData.append('id', this.id)
             this.formData.append('name', this.form.name);
             this.formData.append('stuid', this.form.stuid);
             this.formData.append('duty', this.form.duty);
@@ -137,7 +170,7 @@
             this.formData.append('birthday', this.form.birthday);
             this.formData.append('home', this.form.home);
             this.formData.append('contact', this.form.contact);
-            axios.post(base.url + '/index/student/add', this.formData).then(response => {
+            axios.post(base.url + '/index/student/update', this.formData).then(response => {
               console.log(response);
               if (response['data']['code'] == -1) {
                 if (response['data']['msg'] == 'stuid_exists') {
@@ -159,7 +192,7 @@
                 }
               } else {
                 this.$message({
-                  message: '添加成功',
+                  message: '修改成功',
                   type: 'success'
                 });
               }
@@ -171,7 +204,7 @@
       upload(file) {
         console.log(file);
         this.formData.append('file', file.file);
-        this.imgNotSelected = false;
+        this.imgChanged = true;
         this.imgFileName = file.file.name;
       },
       handleAvatarSuccess(res, file) {
@@ -195,28 +228,3 @@
     },
   }
 </script>
-<style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
-</style>

@@ -14,16 +14,7 @@
                         <template slot="title"><i class="el-icon-star-on "></i>学生管理</template>
                         <el-menu-item index="findStudent">查找学生</el-menu-item>
                     </el-submenu>
-                    <el-submenu index="6">
-                        <template slot="title"><i class="el-icon-setting"></i>配置</template>
-                        <el-menu-item index="percentConfig">比例配置</el-menu-item>
-                        <el-menu-item index="systemInit">程序初始化</el-menu-item>
-                        <el-menu-item index="deployContract">部署合约</el-menu-item>
-                    </el-submenu>
-                    <el-submenu index="7">
-                        <template slot="title"><i class="el-icon-user-solid"></i>我的账户</template>
-                        <el-menu-item index="changePwd">修改密码</el-menu-item>
-                    </el-submenu>
+
                 </el-menu>
             </el-col>
             <el-col :span="20" style="height: 100%;overflow: auto;">
