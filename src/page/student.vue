@@ -14,6 +14,16 @@
           <el-form-item label="学号" prop="stuid">
             <el-input v-model="form.stuid"></el-input>
           </el-form-item>
+	  <el-form-item label="性别" prop="sex">
+		<el-select v-model="form.sex" placeholder="请选择">
+			<el-option>
+				v-for="item in options"
+				:key="item.value"
+				:label="item.label"
+				:value="item.value"
+			</el-option>
+		</el-select>
+	  </el-form-item>
           <el-form-item label="职务" prop="duty">
             <el-input v-model="form.duty"></el-input>
           </el-form-item>
@@ -82,9 +92,14 @@
     },
     data() {
       return {
+	options: [
+			{ value: '男', label: '男' },
+			{ value: '女', label: '女' }
+	],
         form: {
           id: getUrlKey('id'),
           name: '',
+	  sex: '',
           stuid: '',
           duty: '',
           place: '',
@@ -107,6 +122,7 @@
           stuid: [
             {required: true, message: '请输入学号', trigger: 'blur'},
           ],
+	  /*
           duty: [
             {required: true, message: '请输入职务', trigger: 'blur'},
           ],
@@ -130,7 +146,8 @@
           ],
           contact: [
             {required: true, message: '请输入联系方式', trigger: 'blur'},
-          ],
+	  ],
+	  */
         },
       }
     },

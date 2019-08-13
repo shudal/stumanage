@@ -5,14 +5,10 @@
                 <el-menu :default-active="defaultActive" style="min-height: 100%;" theme="dark" router>
                     <el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
 
-                    <el-submenu index="4">
-                        <template slot="title"><i class="el-icon-notebook-2"></i>学籍管理</template>
-                        <el-menu-item index="addStudent">添加学生</el-menu-item>
-                    </el-submenu>
-
                     <el-submenu index="3">
-                        <template slot="title"><i class="el-icon-star-on "></i>学生管理</template>
-                        <el-menu-item index="findStudent">查找学生</el-menu-item>
+                        <template slot="title"><i class="el-icon-star-on "></i>学员管理</template>
+			<el-menu-item index="addStudent">添加学员</el-menu-item>
+                        <el-menu-item index="findStudent">查找学员</el-menu-item>
                     </el-submenu>
 
                 </el-menu>

@@ -3,7 +3,7 @@
 		<transition name="form-fade" mode="in-out">
 			<section class="form_contianer" v-show="showLogin">
 				<div class="manage_tip">
-					<p>学生信息管理系统</p>
+					<p>学员信息管理系统</p>
 				</div>
 			<el-form :model="loginForm" :rules="rules" ref="loginForm">
 				<el-form-item prop="username">
@@ -16,8 +16,6 @@
 				<el-button type="primary" @click="submitForm('loginForm')" class="submit_btn">登陆</el-button>
 				</el-form-item>
 			</el-form>
-			<p class="tip">温馨提示:</p>
-			<p class="tip">用户名为字母、数字、特殊符号等的结合</p>
 			</section>
 		</transition>
 	</div>

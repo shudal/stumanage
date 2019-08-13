@@ -25,11 +25,11 @@ export default new Router({
       name: '',
       children: [
         {path: '', component: home, meta:[]},
-        {path: '/addStudent', component: addStudent, meta: ['学籍管理', '添加学生']},
-        {path: '/findStudent', component: findStudent, meta: ['学生管理', '查找学生']},
-        {path: '/student', component: student, meta: ['学生管理', '编辑学生']},
-        {path: '/addStory', component: addStory, meta: ['学生管理', '新增表现']},
-        {path: '/stories', component: stories, meta: ['学生管理', '查看表现']},
+        {path: '/addStudent', component: addStudent, meta: ['学员管理', '添加学员']},
+        {path: '/findStudent', component: findStudent, meta: ['学员管理', '查找学员']},
+        {path: '/student', component: student, meta: ['学员管理', '编辑学员']},
+        {path: '/addStory', component: addStory, meta: ['学员管理', '新增表现']},
+        {path: '/stories', component: stories, meta: ['学员管理', '查看表现']},
 
       ]
     }
