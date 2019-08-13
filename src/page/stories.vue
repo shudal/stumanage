@@ -27,6 +27,16 @@
             label="日常表现"
             width="520">
           </el-table-column>
+
+          <el-table-column
+            fixed="right"
+            label="操作"
+            width="150">
+            <template slot-scope="scope">
+              <el-button @click="mydelete(scope.row)" type="text" size="small">删除</el-button>
+              <el-button @click="modify(scope.row)" type="text" size="small">修改</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
     </div>
@@ -70,6 +80,72 @@
           }
         });
       },
+      mydelete: async function(row) {
+        let theFormData = new FormData();
+        theFormData.append('id', row['id']);
+        axios.post(base.url + '/index/story/delete', theFormData).then(response => {
+          console.log(response);
+          if (response['data']['code'] == -1) {
+            if (response['data']['msg'] == 'no_right') {
+              this.$alert('请重新登录', '失败', {
+                confirmButtonText: '确定',
+              });
+            } else {
+              this.$alert(response['data']['msg'], '失败', {
+                confirmButtonText: '确定',
+              });
+            }
+          } else {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            });
+            this.init()
+          }
+        });
+      },
+      modify: async function (row) {
+        this.stuid = getUrlKey('stuid');
+        let theFormData = new FormData();
+        theFormData.append('stuid', this.stuid);
+        theFormData.append('id', row['id']);
+        this.$prompt('请修改日常表现', '修改', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          inputType: 'textarea',
+          inputValue: row['content'],
+        }).then(({ value }) => {
+          let theFormData = new FormData();
+          theFormData.append('stuid', row['stuid']);
+          theFormData.append('content', value);
+          theFormData.append('id', row['id']);
+          axios.post(base.url + '/index/story/update', theFormData).then(response => {
+            console.log(response);
+            if (response['data']['code'] == -1) {
+              if (response['data']['msg'] == 'no_right') {
+                this.$alert('请重新登录', '失败', {
+                  confirmButtonText: '确定',
+                });
+              } else {
+                this.$alert(response['data']['msg'], '失败', {
+                  confirmButtonText: '确定',
+                });
+              }
+            } else {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              });
+              this.init();
+            }
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });
+        });
+      }
     },
     components: {
       headTop,

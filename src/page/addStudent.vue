@@ -82,14 +82,14 @@
   export default {
     data() {
       return {
-	options: [
-		{ value: '男', label: '男' },
-		{ value: '女', label: '女' }
-	],
+        options: [
+          { value: '男', label: '男' },
+          { value: '女', label: '女' }
+        ],
         form: {
           name: '',
           stuid: '',
-	  sex: '',
+	        sex: '',
           duty: '',
           place: '',
           idcard: '',
@@ -149,6 +149,7 @@
           if (valid) {
             this.formData.append('name', this.form.name);
             this.formData.append('stuid', this.form.stuid);
+            this.formData.append('sex', this.form.sex);
             this.formData.append('duty', this.form.duty);
             this.formData.append('place', this.form.place);
             this.formData.append('idcard', this.form.idcard);

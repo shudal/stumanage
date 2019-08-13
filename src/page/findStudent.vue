@@ -29,12 +29,17 @@
             fixed
             prop="name"
             label="姓名"
-            width="150">
+            width="60">
           </el-table-column>
           <el-table-column
             prop="stuid"
             label="学号"
             width="120">
+          </el-table-column>
+          <el-table-column
+            prop="sex"
+            label="性别"
+            width="40">
           </el-table-column>
           <el-table-column
             prop="duty"
@@ -49,12 +54,12 @@
           <el-table-column
             prop="idcard"
             label="身份证号"
-            width="300">
+            width="180">
           </el-table-column>
           <el-table-column
             prop="nation"
             label="民族"
-            width="120">
+            width="70">
           </el-table-column>
           <el-table-column
             prop="politic"
@@ -79,11 +84,12 @@
           <el-table-column
             fixed="right"
             label="操作"
-            width="150">
+            width="200">
             <template slot-scope="scope">
               <el-button @click="handleClick(scope.row)" type="text" size="small">编辑信息</el-button>
               <el-button @click="addStory(scope.row)" type="text" size="small">新增表现</el-button>
               <el-button @click="stories(scope.row)" type="text" size="small">查看表现</el-button>
+              <el-button @click="mydelete(scope.row)" type="text" size="small">删除学员</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -172,7 +178,30 @@
             message: '取消输入'
           });
         });
-      }
+      },
+      async mydelete(row) {
+        let theFormData = new FormData();
+        theFormData.append('id', row['id']);
+        axios.post(base.url + '/index/student/delete', theFormData).then(response => {
+          console.log(response);
+          if (response['data']['code'] == -1) {
+            if (response['data']['msg'] == 'no_right') {
+              this.$alert('请重新登录', '失败', {
+                confirmButtonText: '确定',
+              });
+            } else {
+              this.$alert(response['data']['msg'], '失败', {
+                confirmButtonText: '确定',
+              });
+            }
+          } else {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            });
+          }
+        });
+      },
     },
     components: {
       headTop,
