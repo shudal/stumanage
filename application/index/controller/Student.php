@@ -12,25 +12,28 @@ class Student extends Base {
             return apiReturn(-1, 'stuid_exists');
         }
 
-
+	$data = input('post.');
         $file = request()->file('file');
         if ($file == null) {
-            return apiReturn(-1, 'no_pic');
-        }
-        $info = $file->move('../public/static/uploads');
-        if ($info) {
+            // return apiReturn(-1, 'no_pic');
+        } else {
+        	$info = $file->move('../public/static/uploads');
+        	if ($info) {
+			$data['pic'] = $info->getSaveName();
             /*
             dump($info->getExtension());
             dump($info->getSaveName());
             dump($info->getFilename());
             */
-        } else {
-            return apiReturn(-1, $file->getError());
-        }
+        	} else {
+            	return apiReturn(-1, $file->getError());
+        	}
+	}
 
-        $data = input('post.');
-        $data['pic'] = $info->getSaveName();
-        model('Student')->save($data);
+        if ($data['birthday'] == "") {
+		    unset($data['birthday']);
+	    }
+	model('Student')->save($data);
 
         return apiReturn(1, 'OK');
     }
@@ -103,12 +106,24 @@ class Student extends Base {
         }
 
 
+        if ($data['birthday'] == "") {
+            unset($data['birthday']);
+        }
         model('Student')->save($data, ['id' => input('post.id')]);
 
         return apiReturn(1, 'OK');
     }
     public function hello() {
         return 'ka';
+    }
+
+    public function delete() {
+        if (!request()->isPost()) {
+            return 'hi';
+        }
+
+        model('Student')->where('id', input('post.id'))->delete();
+        return apiReturn(1, 'OK');
     }
 
 }

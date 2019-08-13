@@ -13,6 +13,24 @@ class Story extends Base {
         return apiReturn(1, 'OK');
     }
 
+    public function update() {
+        if (!request()->isPost()) {
+            return 'hi';
+        }
+
+        $data = input('post.');
+        model('Story')->save($data, ['id' => input('post.id')]);
+        return apiReturn(1, 'OK');
+    }
+    public function delete() {
+        if (!request()->isPost()) {
+            return 'hi';
+        }
+
+        model('Story')->where('id', input('post.id'))->delete();
+        return apiReturn(1, 'OK');
+    }
+
     public function get() {
         if (!request()->isGet()) {
             return 'hi';

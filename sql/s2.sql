@@ -28,7 +28,7 @@ CREATE TABLE `story` (
   `content` text,
   `create_time` varchar(18) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `story` (
 
 LOCK TABLES `story` WRITE;
 /*!40000 ALTER TABLE `story` DISABLE KEYS */;
-INSERT INTO `story` VALUES (7,'8888888888888','非常好\n','1565587565000'),(8,'8888888888888','厉害厉害','1565587574000'),(9,'8888888888888','的风格地方','1565587773000'),(10,'fdgj','sdfdsf\ndsfds','1565594658000');
+INSERT INTO `story` VALUES (7,'8888888888888','非常好 ','1565587565000'),(13,'8888888888888','dsgdf','1565679799000'),(10,'fdgj','sdfdsf\ndsfds','1565594658000');
 /*!40000 ALTER TABLE `story` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,12 +57,13 @@ CREATE TABLE `student` (
   `idcard` varchar(50) DEFAULT NULL,
   `nation` varchar(30) DEFAULT NULL,
   `politic` varchar(30) DEFAULT NULL,
-  `birthday` varchar(30) DEFAULT NULL,
+  `birthday` varchar(18) DEFAULT '915120000000',
   `home` varchar(300) DEFAULT NULL,
   `contact` varchar(300) DEFAULT NULL,
   `place` varchar(150) DEFAULT NULL,
+  `sex` varchar(15) DEFAULT '未知',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +72,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (21,'小名','8888888888888','20190812/b67443fe29aa8d2a16e812546b79dab0.jpg','班长','444444444444444444','汉','共青团员','1566403200000','武汉市','11111111111','武汉'),(22,'ppppsd','fdg','20190812/8a08849bd665ef77c78b5923ed88376a.jpg','dfg','gf','df','g','1565625600000','sdf','sdf','df'),(23,'jjj','fdgj','20190812/698642fe6c3a78e3b521f1230dd1f1ab.jpg','dfg','gf','df','g','1565625600000','sdf','sdf','df'),(24,'dfg','klfdg','20190812/a94dd9d75d7d7009efba4dab641d3213.jpg','df','gdf','d','f','1533657600000','vvcb','cvbvc','fd');
+INSERT INTO `student` VALUES (21,'小名','8888888888888','20190812/b67443fe29aa8d2a16e812546b79dab0.jpg','班长','444444444444444444','汉','共青团员','1566921600000','武汉市','11111111111','武汉','男'),(22,'ppppsd','fdg','20190812/8a08849bd665ef77c78b5923ed88376a.jpg','dfg','gf','df','g','1565625600000','sdf','sdf','df','女'),(23,'jjj','fdgj','20190812/698642fe6c3a78e3b521f1230dd1f1ab.jpg','dfg','gf','df','g','1565625600000','sdf','sdf','df','未知'),(24,'dfg','klfdg','20190812/a94dd9d75d7d7009efba4dab641d3213.jpg','df','gdf','d','f','1533657600000','vvcb','cvbvc','fd','未知'),(27,'小君','sdf','20190813/0c44c078887cdac9c731a43a8695df5f.jpg','sdf','sdf','sdf','dsf','1565712000000','f','sdfsd','sdf','男');
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,4 +111,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-12 15:45:03
+-- Dump completed on 2019-08-13 15:13:34
